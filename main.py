@@ -54,5 +54,4 @@ def bfs(graph, start, end):
 if check_args():
 	graph = read_file()
 	#print graph
-	#print bfs(graph, 0, 8)
-	print dfs(graph, 0, 8)
+	print bfs(graph, 0, 8)
