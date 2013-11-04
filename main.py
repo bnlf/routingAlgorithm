@@ -1,6 +1,4 @@
-#
-# MAC0425/5730 - Inteligencia Artificial - EP1 @ 2013.2
-# Autor: Bruno Nunes Leal Faria - nUSP: 8765551
+# Redes de computadores
 #
 # FILE: main.py
 #
