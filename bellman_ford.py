@@ -9,9 +9,6 @@ Graph API:
     
 """
 
-import sys
-import csv
-
 def initialize(graph, source):
     d = {}
     p = {}
@@ -37,28 +34,7 @@ def bellman_ford(graph, source):
             assert d[v] <= d[u] + graph[u][v]
     return d, p
 
-def read_file():
-    graph = {}
-    reader = csv.reader(open(sys.argv[1]), delimiter='\t')
-    for row in reader:
-        orig = int(row[0])
-        dest = int(row[1])
-        weight = int(row[2])
-        d = graph.get(orig)
-        if not d:
-            graph[orig] = {dest: weight}
-        else:
-            d[dest] = weight
-            graph[orig] = d
-    return graph
-
 def test():
-    #g = read_file()
-    g = read_file()
-    
-    d, p = bellman_ford(g, 0)
-    print d
-    print p
     
     graph = {
         'a': {'b': -1, 'c':  4},
@@ -69,24 +45,21 @@ def test():
         }
     
     d, p = bellman_ford(graph, 'a')
-    print d
-    print p
     
-    #assert d == {
-    #    'a':  0,
-    #    'b': -1,
-    #    'c':  2,
-    #    'd': -2,
-    #    'e':  1
-    #    }
-    #
-    #assert p == {
-    #    'a': None,
-    #    'b': 'a',
-    #    'c': 'b',
-    #    'd': 'e',
-    #    'e': 'b'
-    #    }
+    assert d == {
+        'a':  0,
+        'b': -1,
+        'c':  2,
+        'd': -2,
+        'e':  1
+        }
+    
+    assert p == {
+        'a': None,
+        'b': 'a',
+        'c': 'b',
+        'd': 'e',
+        'e': 'b'
+        }
 
-if __name__ == '__main__': 
-    test()
+if __name__ == '__main__': test()

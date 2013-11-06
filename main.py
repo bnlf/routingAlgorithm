@@ -7,10 +7,10 @@ import sys
 
 # checks input arguments
 def check_args():
-	search_types = ["L", "P"]
+	search_types = ["B", "D"]
 	if len(sys.argv) < 3:
 		print "Usage: <input_file> <type>"
-		print "Search Type: L (largura), P (profundidade)"
+		print "Search Type: B (bfs), iDFS"
 		return False
 	elif str(sys.argv[2]).upper() not in search_types:
 		print "Search type \"%s\" not supported" % (sys.argv[2])
@@ -36,6 +36,7 @@ def read_file():
 		graph[int(key)].append(int(value))
 	return graph
 
+# Breadth first search
 def bfs(graph, start, end):
 	todo = [[start, [start]]]
 	while 0 < len(todo):
@@ -48,8 +49,42 @@ def bfs(graph, start, end):
 			else:
 				todo.append([next_node, path + [next_node]])
 
+# depth first search
+def idfs(graph, start, end, depth, path=[], i=0):
+	path = path + [start]
+	if start == end or i > depth:
+		return path
+	if not graph.has_key(start):
+		return None
+	shortest = None
+	for node in graph[start]:
+		if node not in path:
+			i+=1
+			newpath = idfs(graph, node, end, depth, path, i)
+			if newpath:
+				if not shortest or len(newpath) < len(shortest):
+					shortest = newpath
+	return shortest
+
+# def relax(u, v, graph, d, p):
+#     if d[v] > d[u] + graph[u][v]:
+#         d[v]  = d[u] + graph[u][v]
+#         p[v] = u
+
+# def bellman_ford(graph, source):
+#     d, p = initialize(graph, source)
+#     for i in range(len(graph)-1):
+#         for u in graph:
+#             for v in graph[u]:
+#                 relax(u, v, graph, d, p)
+#     for u in graph:
+#         for v in graph[u]:
+#             assert d[v] <= d[u] + graph[u][v]
+#     return d, p
+
 # main execution
 if check_args():
 	graph = read_file()
 	#print graph
-	print bfs(graph, 0, 8)
+	print bfs(graph, 0, 5022)
+	print idfs(graph, 0, 5022, 40, [], 0)

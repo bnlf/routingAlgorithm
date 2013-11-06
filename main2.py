@@ -18,7 +18,7 @@ def check_args():
 	if len(sys.argv) < 3:
 		print "Usage: <input_file> <type>"
 		print "Search Type: B (bfs)"
-		return False
+		return True
 	elif str(sys.argv[2]).upper() not in search_types:
 		print "Search type \"%s\" not supported" % (sys.argv[2])
 		return False
@@ -60,6 +60,6 @@ def bfs(graph, start, end):
 if check_args():
 	graph = read_file()
 	#print graph
-	st, pre = breadth_first_search(graph, root='5')
+	st, pre, post = depth_first_search(graph, root='9')
 	print st
 	#print bfs(graph, 0, 235)
