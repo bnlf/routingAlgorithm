@@ -3,13 +3,13 @@
 # FILE: main.py
 #
 
-import sys
+import sys, time
 
 # checks input arguments
 def check_args():
 	search_types = ["B", "D"]
-	if len(sys.argv) < 3:
-		print "Usage: <input_file> <type>"
+	if len(sys.argv) < 4:
+		print "Usage: <input_file> <type> <destination>"
 		print "Search Type: B (bfs), iDFS"
 		return False
 	elif str(sys.argv[2]).upper() not in search_types:
@@ -86,5 +86,8 @@ def idfs(graph, start, end, depth, path=[], i=0):
 if check_args():
 	graph = read_file()
 	#print graph
-	print bfs(graph, 0, 5022)
-	print idfs(graph, 0, 5022, 40, [], 0)
+	start_time = time.time()
+	result = bfs(graph, 0, int(sys.argv[3]))
+	print result, len(result)
+	print time.time() - start_time, "seconds"
+	#print idfs(graph, 0, 5022, 40, [], 0)
